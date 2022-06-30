@@ -1,7 +1,7 @@
 from django.db import models
-from django.core.validators import MinLengthValidator, URLValidator
+from django.core.validators import MinLengthValidator
 
-from petstagram.main.validators import only_letters_validator
+from petstagram.main.validators import only_letters_validator, validate_file_max_size_in_mb
 
 
 class Profile(models.Model):
@@ -48,3 +48,67 @@ class Profile(models.Model):
 
     # same as
     # picture2=models.CharField(validators=(URLValidator()))
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+class Pet(models.Model):
+    '''CONSTANTS'''
+    CAT = 'Cat'
+    DOG = 'Dog'
+    BUNNY = 'Bunny'
+    PARROT = 'Parrot'
+    FISH = 'Fish'
+    OTHER = 'Other'
+    TYPES = [(x, x) for x in [CAT, DOG, BUNNY, PARROT, FISH, OTHER]]
+
+    NAME_MAX_LENGTH = 30
+
+    '''COLUMNS/ FIELDS'''
+    name = models.CharField(
+        max_length=NAME_MAX_LENGTH,
+    )
+    type = models.CharField(
+        max_length=max(len(x) for x, _ in TYPES),
+        choices=TYPES,
+    )
+
+    date_of_birth = models.DateField(null=True, blank=True)
+
+    '''ONE TO ONE RELATIONS'''
+
+    '''ONE TO MANY RELATIONS'''
+    user_profile = models.ForeignKey(
+        Profile,
+        on_delete=models.CASCADE,
+    )
+
+    '''MANY TO MANY RELATIONS'''
+
+    '''DUNDER METHODS'''
+
+    '''META'''
+
+    class Meta:
+        unique_together = ('user_profile', 'name')
+
+
+class PetPhoto(models.Model):
+    photo = models.ImageField(
+        validators=(#validate_file_max_size_in_mb,
+                    )
+    )
+
+    # TODO validate at least one pet
+    tagged_pets = models.ManyToManyField(Pet, )
+
+    description = models.TextField(null=True, blank=True)
+
+    publication_date = models.DateTimeField(
+        auto_now_add=True,
+
+    )
+    likes = models.IntegerField(
+        default=0,
+    )
