@@ -1,3 +1,5 @@
+import datetime
+
 from django.db import models
 from django.core.validators import MinLengthValidator
 
@@ -85,6 +87,10 @@ class Pet(models.Model):
     )
 
     '''MANY TO MANY RELATIONS'''
+
+    @property
+    def age(self):
+        return datetime.datetime.now().year-self.date_of_birth.year
 
     '''DUNDER METHODS'''
 
