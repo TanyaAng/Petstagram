@@ -46,6 +46,7 @@ class Profile(models.Model):
         choices=GENDER,
         null=True,
         blank=True,
+        default=DO_NOT_SHOW,
     )
 
     # same as
