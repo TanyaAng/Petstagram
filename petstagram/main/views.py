@@ -14,7 +14,7 @@ def show_home(request):
     context = {
         'hide_additional_nav_items': True,
     }
-    return render(request, 'home_page.html', context)
+    return render(request=request, template_name='home_page.html', context=context)
 
 
 def show_dash_board(request):
