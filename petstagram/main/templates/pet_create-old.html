@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block page_content %}
+
+<div class="container">
+    <h1 class="text-center">Add new pet photo</h1>
+    <div class="row">
+        <div class="col-lg-3"></div>
+        <div class="col-lg-6">
+
+            <!-- Form for Adding Pet -->
+            <form method="post" action="profile_details.html">
+                <div class="form-group">
+                    <label for="name">Pet Name</label>
+                    <input type="text" class="form-control" name="first_name" placeholder="Enter name"
+                           id="name"/>
+                </div>
+                <div class="form-group">
+                    <label for="type_animal" class="col-form-label">Type:
+                    <select class="form-select">
+                        <option value="first">Cat</option>
+                        <option value="second">Dog</option>
+                        <option value="third">Mouse</option>
+                    </select></label>
+                </div>
+                <div class="form-group">
+                    <label for="age">Day of Birth:</label>
+                    <input type="date" class="form-control" name="age" placeholder=""
+                           id="age"/>
+                </div>
+
+                <button class="btn btn-primary mt-2" type="submit">Create</button>
+            </form>
+            <!-- End Form for Adding Pet -->
+        </div>
+        <div class="col-lg-3"></div>
+    </div>
+</div>
+
+{% endblock %}
